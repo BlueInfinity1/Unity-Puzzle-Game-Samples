@@ -178,32 +178,6 @@ public class GameController : MonoBehaviour
         //if there are no mismatched patterns, we've solved the puzzle
         return true;
     }
-
-    public Vector3 GetTileWorldSpacePosition(Vector2 tilePositionInGrid)
-    {
-        Vector3 screenSpacePosition = new (boardTopLeftCorner.x + (tilePositionInGrid.x + 0.5f) * tileSize, boardTopLeftCorner.y + (squareGridSize.y - 1 - tilePositionInGrid.y + 0.5f) * tileSize);
-        Vector2 worldSpacePosition = Camera.main.ScreenToWorldPoint(screenSpacePosition); //We use Vector2 cast here to make z coordinate 0
-        return worldSpacePosition;
-    }
-
-    public void OnMovePlayed()
-    {
-        moveCount++;
-        moveText.text = "Moves: " + moveCount;
-
-        if (IsPuzzleSolved())
-        {            
-            tileSwipeController.enabled = false; //disable any further swipe movements
-            AudioManager.instance.Play(Sound.LevelComplete);
-            StopCoroutine(UpdatingTimer());
-            Invoke(nameof(FinalizeLevelClearing), 1.0f);
-
-            Debug.Log("<color=yellow>Puzzle has been solved!</color>");
-        }
-        else
-            Debug.Log("Puzzle has NOT been solved yet.");
-    }
-
     void FinalizeLevelClearing()
     {
         scorePopup.SetActive(true);
@@ -256,6 +230,32 @@ public class GameController : MonoBehaviour
             yield return waitTime;
         }
     }    
+
+
+    public Vector3 GetTileWorldSpacePosition(Vector2 tilePositionInGrid)
+    {
+        Vector3 screenSpacePosition = new (boardTopLeftCorner.x + (tilePositionInGrid.x + 0.5f) * tileSize, boardTopLeftCorner.y + (squareGridSize.y - 1 - tilePositionInGrid.y + 0.5f) * tileSize);
+        Vector2 worldSpacePosition = Camera.main.ScreenToWorldPoint(screenSpacePosition); //We use Vector2 cast here to make z coordinate 0
+        return worldSpacePosition;
+    }
+
+    public void OnMovePlayed()
+    {
+        moveCount++;
+        moveText.text = "Moves: " + moveCount;
+
+        if (IsPuzzleSolved())
+        {            
+            tileSwipeController.enabled = false; //disable any further swipe movements
+            AudioManager.instance.Play(Sound.LevelComplete);
+            StopCoroutine(UpdatingTimer());
+            Invoke(nameof(FinalizeLevelClearing), 1.0f);
+
+            Debug.Log("<color=yellow>Puzzle has been solved!</color>");
+        }
+        else
+            Debug.Log("Puzzle has NOT been solved yet.");
+    }
 
     public void PauseGame()
     {
