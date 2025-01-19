@@ -36,8 +36,8 @@ public class GameController : MonoBehaviour
         if (!GameData.gameInitialized) // NOTE: This should be done in the main menu controller, and this is just here for the sake of quickly starting directly from the play mode scene
             GameData.InitializeGame();
 
-        AudioManager.instance.StopAllMusic();
-        AudioManager.instance.Play(Sound.MainBackgroundTheme, true, false);
+        AudioManager.Instance.StopAllMusic();
+        AudioManager.Instance.Play(Sound.MainBackgroundTheme, true, false);
 
         squareGridSize = new Vector2Int((int)GameData.gridSize.x, (int)GameData.gridSize.y);
         tileSwipeController = GetComponent<TileSwipeController>();
@@ -257,7 +257,7 @@ public class GameController : MonoBehaviour
         if (IsPuzzleSolved())
         {            
             tileSwipeController.enabled = false; // Disable any further swipe movements
-            AudioManager.instance.Play(Sound.LevelComplete);
+            AudioManager.Instance.Play(Sound.LevelComplete);
             StopCoroutine(UpdatingTimer());
             Invoke(nameof(FinalizeLevelClearing), 1.0f);
 
@@ -269,7 +269,7 @@ public class GameController : MonoBehaviour
 
     public void PauseGame()
     {
-        AudioManager.instance.Play(Sound.MenuButtonPress);
+        AudioManager.Instance.Play(Sound.MenuButtonPress);
         pauseMenu.SetActive(true);
         tileSwipeController.enabled = false;
         Time.timeScale = 0; // NOTE: We do this to pause the timer, as Time.time won't update if this is 0. However, this will also affect all motion and physics simulations in the game, pausing them.
