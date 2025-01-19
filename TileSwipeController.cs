@@ -60,7 +60,7 @@ public class TileSwipeController : MonoBehaviour
             // Highlight this square
             if (clickedTileGridPosition.x != -1 && gameController.tileGrid[(int)clickedTileGridPosition.x, (int)clickedTileGridPosition.y].tile != null)
             {
-                AudioManager.instance.Play(Sound.TilePress);
+                AudioManager.Instance.Play(Sound.TilePress);
                 highlighter.gameObject.SetActive(true);
                 highlighter.transform.position = gameController.tileGrid[(int)clickedTileGridPosition.x, (int)clickedTileGridPosition.y].tile.transform.position;
                 dragStartPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition); // NOTE: This doesn't use flipped y coordinates, but it's only used for relative calculations with other non-flipped y coordinates,
@@ -134,7 +134,7 @@ public class TileSwipeController : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && dragStartTileGridPosition != endTilePosition && dragStartTileGridPosition.x != -1)
         {
             //Debug.Log("Tile drag movement when released: " + tileDragMovement);
-            AudioManager.instance.Play(Sound.TileSlide);
+            AudioManager.Instance.Play(Sound.TileSlide);
 
             int dragStartCol = (int)dragStartTileGridPosition.x;
             int dragStartRow = (int)dragStartTileGridPosition.y;
@@ -215,7 +215,7 @@ public class TileSwipeController : MonoBehaviour
             if (dragStartTileGridPosition != -Vector2.one) // Drag start point is defined
             {
                 if (gameController.tileGrid[(int)dragStartTileGridPosition.x, (int)dragStartTileGridPosition.y].tile != null) // We've actually dragged a tile and not just started a drag by clicking a point that doesn't contain a tile
-                    AudioManager.instance.Play(Sound.TileRelease);
+                    AudioManager.Instance.Play(Sound.TileRelease);
             }
         }
 
